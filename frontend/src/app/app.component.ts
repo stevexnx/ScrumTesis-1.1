@@ -13,6 +13,7 @@ import { getProjects } from '@features/project/state/project.selectors';
 import { User } from '@core/interfaces/user';
 import { getCurrentUser } from '@features/user/state/user.selectors';
 import { loadUsers } from '@features/user/state/actions/user.actions';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -25,11 +26,24 @@ export class AppComponent implements OnInit, OnDestroy {
   currentUser$: Observable<User>;
 
   isSidebarCollapsed = false;
+  public actualRoute: string = '';
+  public canMenuVisible: boolean = true;
 
   constructor(
     private navigationService: NavigationService,
-    private store: Store<AppState>
-  ) { }
+    private store: Store<AppState>,
+    private location: Location
+  ) {
+    
+    this.actualRoute = this.location.path();
+
+    if(this.actualRoute === '' || this.actualRoute === '/register'){
+      this.canMenuVisible = false
+    }else{
+      this.canMenuVisible = true;
+    }
+
+   }
 
   ngOnInit(): void {
     this.navigationService.sidebarCollapseStatusChanged$.pipe(takeUntil(this.subsNotifier)).subscribe(collapseStatus => this.isSidebarCollapsed = collapseStatus);

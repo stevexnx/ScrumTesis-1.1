@@ -1,4 +1,4 @@
-<nz-layout class="app-layout">
+<nz-layout *ngIf="canMenuVisible" class="app-layout">
   <nz-header>
     <app-navigation-toolbar
       [projects$]="projects$"
@@ -6,7 +6,7 @@
     ></app-navigation-toolbar>
   </nz-header>
 
-  <nz-layout>
+  <nz-layout *ngIf="canMenuVisible">
     <nz-sider
       class="menu-sidebar"
       nzCollapsible
@@ -18,7 +18,7 @@
     >
       <app-navigation-sidebar></app-navigation-sidebar>
     </nz-sider>
-    <nz-layout>
+    <nz-layout *ngIf="canMenuVisible">
       <nz-content>
         <router-outlet></router-outlet>
       </nz-content>
@@ -29,4 +29,8 @@
   </nz-layout>
 </nz-layout>
 
-<app-svg-definitions></app-svg-definitions>
+<app-svg-definitions *ngIf="canMenuVisible"></app-svg-definitions>
+
+<div class="center" class="content-body" *ngIf="!canMenuVisible">
+  <router-outlet></router-outlet>
+</div>

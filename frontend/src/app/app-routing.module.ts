@@ -1,9 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { RegisterComponent } from './components/pages/register/register.component';
+import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
+  // {
+  //   path: '', pathMatch: 'full', redirectTo: '/board'
+  // },
   {
-    path: '', pathMatch: 'full', redirectTo: '/board'
+    path: '', component: LoginComponent
+  },
+  {
+    path: 'register', component: RegisterComponent
   },
   {
     path: 'board',

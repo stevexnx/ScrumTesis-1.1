@@ -25,11 +25,17 @@ import { environment } from '@environment/environment';
 import { CoreModule } from '@core/core.module';
 import { ProjectModule } from '@features/project/project.module';
 import { UserModule } from '@features/user/user.module';
+import { LoginComponent } from './pages/login/login.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { RegisterComponent } from './components/pages/register/register.component';
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -39,6 +45,10 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     NzLayoutModule,
     NavigationModule,
+    MatCardModule,
+    MatButtonModule,
+    MatInputModule,
+    MatIconModule,
     CoreModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),

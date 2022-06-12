@@ -9,7 +9,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
         return {
-          uri: configService.get('MONGODB_URI'),
+          uri: 'mongodb+srv://admin:admin123@test.jil9b.mongodb.net/test?retryWrites=true&w=majority',
           useCreateIndex: true,
           useNewUrlParser: true,
           useFindAndModify: false,
