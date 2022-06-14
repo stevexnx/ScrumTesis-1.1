@@ -26,6 +26,7 @@ export class ProjectListPageComponent implements OnInit {
   projects$: Observable<Project[]>;
   projectsForm!: FormGroup;
   projectsError$: Observable<string>;
+  projectByUser: any;
 
   constructor(
     private fb: FormBuilder,
@@ -47,15 +48,21 @@ export class ProjectListPageComponent implements OnInit {
     ]).pipe(
       switchMap(([projects, term]) => {
         const searchTerm = term.search as string;
+        const id = localStorage.getItem('userId');
         return of(
           projects?.filter((p) =>
             Boolean(searchTerm)
               ? p.name.toLowerCase().includes(searchTerm.toLowerCase())
               : true
+              ||
+              Boolean(id)
+              ? p.leader.id.includes(id)
+              : true
           )
         );
       })
     );
+    
     this.projectsError$ = this.store.select(getProjectsError);
   }
 

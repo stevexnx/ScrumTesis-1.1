@@ -23,6 +23,7 @@ export class BoardPageComponent implements OnInit {
   currentProject$: Observable<Project>;
   assignees$: Observable<User[]>;
   issuesError$: Observable<string>;
+  index: number = 0;
 
   constructor(private store: Store<AppState>, private titleService: Title) {
     this.titleService.setTitle('Project board - Kanban Project Management');

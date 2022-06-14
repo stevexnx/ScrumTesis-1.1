@@ -9,13 +9,14 @@ import { Project, ProjectDocument } from './schemas/project.schema';
 import { mongooseErrorHandler } from '@kanban-project-management/common/helpers/mongoose-error-handler';
 import { IssuesService } from '@kanban-project-management/features/issues/issues.service';
 import { GetProjectFilterDto } from './dto/get-project-filter.dto';
+import { User, UserDocument } from '../users/schemas/user.schema';
 
 @Injectable()
 export class ProjectsService {
   constructor(
     @InjectModel(Project.name) private projectModel: Model<ProjectDocument>,
     private readonly issuesService: IssuesService,
-  ) {}
+  ) { }
 
   async create(createProjectDto: CreateProjectDto): Promise<Project> {
     const createProject = new this.projectModel(createProjectDto);

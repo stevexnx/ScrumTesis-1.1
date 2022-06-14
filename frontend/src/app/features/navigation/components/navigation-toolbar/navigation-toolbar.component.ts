@@ -72,4 +72,9 @@ export class NavigationToolbarComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  deleteLocalStorage(){
+    localStorage.removeItem('userId');
+    localStorage.removeItem('name');
+  }
+
 }

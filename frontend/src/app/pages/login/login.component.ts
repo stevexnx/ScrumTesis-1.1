@@ -19,11 +19,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.removeItem('name');
+    localStorage.removeItem('userId');
   }
 
   onSubmit() {
-    this._service.login(this.loginForm.value).subscribe(data => {
+    this._service.login(this.loginForm.value).subscribe((data: any) => {
       this._router.navigateByUrl('/board');
+      localStorage.setItem('userId', data.id);
+      localStorage.setItem('name', data.name);
     }, err => {
       alert('Fallo autenticacion, credenciales invalidas');
     });

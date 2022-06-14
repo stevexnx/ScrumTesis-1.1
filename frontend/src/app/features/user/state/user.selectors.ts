@@ -13,7 +13,7 @@ export const getCurrentUser = createSelector(
   getUserFeatureState,
   getCurrentUserId,
   (state, currentUserId) => {
-    return state.users.find(u => u.id === currentUserId);
+    return state.users.find(u => u.id === localStorage.getItem('userId'));
   }
 );
 

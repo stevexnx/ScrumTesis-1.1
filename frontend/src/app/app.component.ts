@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
-import { Subject, Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, Observable, of, combineLatest } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 
 import { NavigationService } from '@features/navigation/services/navigation.service';
 import { ProjectPageActions } from '@features/project/state/actions';
@@ -34,22 +34,33 @@ export class AppComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private location: Location
   ) {
-    
+
     this.actualRoute = this.location.path();
 
-    if(this.actualRoute === '' || this.actualRoute === '/register'){
+    if (this.actualRoute === '' || this.actualRoute === '/register') {
       this.canMenuVisible = false
-    }else{
+    } else {
       this.canMenuVisible = true;
     }
 
-   }
+  }
 
   ngOnInit(): void {
     this.navigationService.sidebarCollapseStatusChanged$.pipe(takeUntil(this.subsNotifier)).subscribe(collapseStatus => this.isSidebarCollapsed = collapseStatus);
 
     this.store.dispatch(ProjectPageActions.loadProjects());
-    this.projects$ = this.store.select(getProjects);
+    this.projects$ = combineLatest([this.store.select(getProjects)]).pipe(
+      switchMap(([projects]) => {
+        const id = localStorage.getItem('userId');
+        return of(
+          projects?.filter((p) => {
+            Boolean(id)
+              ? p.leader.id.includes(id)
+              : true
+          })
+        )
+      })
+    )
     this.store.dispatch(loadUsers());
     this.currentUser$ = this.store.select(getCurrentUser);
   }

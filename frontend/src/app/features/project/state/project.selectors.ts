@@ -28,10 +28,17 @@ export const isCurrentProject = createSelector(
   }
 );
 
+export const getProject = createSelector(
+  getProjectFeatureState,
+  (state) => {
+    state.projects.find(p => p.leader.id === localStorage.getItem('userId'))
+  }
+);
+
 export const getProjects = createSelector(
   getProjectFeatureState,
   (state) => state.projects
-);
+)
 
 export const getProjectById = createSelector(
   getProjects,

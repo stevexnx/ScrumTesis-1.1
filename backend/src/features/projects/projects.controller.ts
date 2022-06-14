@@ -33,6 +33,10 @@ export class ProjectsController {
     return this.projectsService.findById(id);
   }
 
+  getProjectsByUser(@Param('id') id: string){
+    return this.projectsService.findAll(null);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
     return this.projectsService.update(id, updateProjectDto);
