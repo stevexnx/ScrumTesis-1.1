@@ -69,7 +69,7 @@
         <td>{{ data.category }}</td>
         <td>
           <div class="leader-info">
-            <img [src]="data.leader.avatarUrl" alt="User picture" />
+            <img [src]="data.leader.avatarUrl ? data.leader.avatarUrl : '../../../../assets/no-image.jpg' " alt="User picture" />
             <span>{{ data.leader.name }}</span>
           </div>
         </td>

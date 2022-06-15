@@ -12,6 +12,7 @@ import { IssuePageActions } from '@features/issues/state/actions';
 import { AppState } from '@core/interfaces/app.state';
 import { User } from '@core/interfaces/user';
 import { getIssuesError } from '@features/issues/state/selectors/issue.selectors';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-board-page',
@@ -25,7 +26,7 @@ export class BoardPageComponent implements OnInit {
   issuesError$: Observable<string>;
   index: number = 0;
 
-  constructor(private store: Store<AppState>, private titleService: Title) {
+  constructor(private store: Store<AppState>, private titleService: Title, private _router: Router) {
     this.titleService.setTitle('Project board - Kanban Project Management');
   }
 

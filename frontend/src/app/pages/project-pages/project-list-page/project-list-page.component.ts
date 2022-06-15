@@ -47,6 +47,7 @@ export class ProjectListPageComponent implements OnInit {
       this.projectsForm.valueChanges.pipe(startWith({ search: '' })),
     ]).pipe(
       switchMap(([projects, term]) => {
+        console.log(projects);
         const searchTerm = term.search as string;
         const id = localStorage.getItem('userId');
         return of(
@@ -57,11 +58,16 @@ export class ProjectListPageComponent implements OnInit {
               ||
               Boolean(id)
               ? p.leader.id.includes(id)
+              : Boolean(p.assignees.some(x => x.id.includes(id))) ?
+              p.assignees          
               : true
           )
         );
       })
     );
+
+
+  
     
     this.projectsError$ = this.store.select(getProjectsError);
   }
@@ -79,8 +85,8 @@ export class ProjectListPageComponent implements OnInit {
   }
 
   changeCurrentProject(projectId: string): void {
-    this.store.dispatch(setCurrentProject({ projectId }));
-    this.store.dispatch(fromFilterActions.clearAllFilters());
+   this.store.dispatch(setCurrentProject({ projectId }));
+   this.store.dispatch(fromFilterActions.clearAllFilters());
     this.router.navigateByUrl('board');
   }
 }
